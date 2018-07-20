@@ -51,21 +51,63 @@ promise
         集合名称：首字母大写，是复数形式
      */
     const Students = mongoose.model('Students', studentsSchema);
-
-    //创建文档对象
-    const stu = new Students({
-      name: '王腾',
-      age: 20,
-      sex: '男',
-      phone: '16666666666',
-      hobby: ['吃吃吃', '睡睡睡', '喝喝喝'],
-      info: '本人男爱好女'
-    })
-    //将文档对象保存在数据库中
-    stu.save(err => {
-      if (!err) console.log('文档插入成功');
+    
+    /*
+      集合对象的方法：
+        CRUD
+          - create
+            Model.create(文档对象, [回调函数])
+          - read
+            Model.find(查询条件[, 投影], [回调函数])
+              回调函数中返回的data的数据类型是 数组
+            Model.findOne(查询条件[, 投影], [回调函数])
+              回调函数中返回的data的数据类型是 对象
+          - update
+            Model.update(查询条件, 更新内容[, 配置对象], [回调函数])
+          - delete
+            Model.remove(查询条件, [回调函数])
+         以上所有方法的返回值都是promise对象
+     */
+  
+    Students.remove({age: {$lt: 19}}, err => {
+      if (!err) console.log('数据删除成功');
       else console.log(err);
     })
+    
+    /*Students.update({$or: [{age: {$gte: 19}}, {sex: '男'}]}, {$inc: {age: 1}}, {multi: true}, err => {
+      if (!err) console.log('数据更新成功');
+      else console.log(err);
+    })*/
+    
+    /*Students.findOne({name: {$in: ['王诗琦']}}, {__v: 0, _id: 0}, (err, data) => {
+      if (!err) {
+        console.log(data);
+      } else {
+        console.log(err);
+      }
+    })*/
+    
+    /*Students.find({name: {$in: ['王xx']}}, (err, data) => {
+      if (!err) {
+        console.log(data);
+      } else {
+        console.log(err);
+      }
+    })*/
+    
+    /*Students.create({
+      name: '周雨',
+      age: 18,
+      sex: '男',
+      phone: '17777777777',
+      hobby: ['鸡腿', '烤肉拌饭'],
+      info: '高富帅'
+    }, err => {
+      if (!err) console.log('文档插入成功');
+      else console.log(err);
+    })*/
+    
+   
   })
   .catch(err => console.log(err))    //失败的回调
   

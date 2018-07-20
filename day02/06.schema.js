@@ -45,14 +45,42 @@ promise
         }
       }
     })
+    //添加一条规则
+    //this在箭头函数中指向存在问题
+    studentsSchema.pre('save', function (next) {
+      //this指代着文档对象
+      if (!this.isNew) {
+        //说明文档对象被修改过
+        this.meta.updateTime = Date.now();
+      }
+      next();
+    })
+    
     //创建集合对象
     /*
       mongoose.model('集合名称', 约束对象)
         集合名称：首字母大写，是复数形式
      */
     const Students = mongoose.model('Students', studentsSchema);
-
-    //创建文档对象
+    
+    Students.findOne({}, (err, data) => {
+      if (!err) {
+        console.log(data);
+        console.log(data.id, data._id);
+        console.log(data.isNew);  //判断当前文档对象是否是新的
+        /*data.update({$set: {age: 22}}, err => {  //更新文档对象的数据的
+          if (!err) console.log('文档更新成功');
+          else console.log(err);
+        })*/
+        data.age += 1;
+        data.save(err => {
+          if (!err) console.log('文档更新成功');
+          else console.log(err);
+        });
+      }
+    })
+    
+    /*//创建文档对象
     const stu = new Students({
       name: '王腾',
       age: 20,
@@ -65,7 +93,7 @@ promise
     stu.save(err => {
       if (!err) console.log('文档插入成功');
       else console.log(err);
-    })
+    })*/
   })
   .catch(err => console.log(err))    //失败的回调
   
