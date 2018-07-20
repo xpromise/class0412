@@ -61,4 +61,26 @@ db.students.find({
 
 db.students.find({age: {$gt: 18}}, {_id: 0, age: 0})
 
+/*
+	u - update 更新文档
+		db.collection.update(查询条件, 更新的内容 [, 配置对象])  默认只更新一个
+		db.collection.update(查询条件, 更新的内容 , {multi: true})  更新多个
+		db.collection.updateOne(查询条件, 更新的内容 ) 只更新一个
+		db.collection.updateMany(查询条件, 更新的内容) 更新多个
+		
+		$set 设置   只会修改你设置的字段
+		$inc 增加   增加值得大小
+*/
 
+db.students.update({name: 'jack'}, {age: 19, name: 'jack'})  //不好， 会将其他字段干掉
+
+db.students.update({name: 'jack'}, {$set: {age: 20}})
+
+db.students.update({}, {$inc: {age: 1}}, {multi: true})
+
+/*
+	d - delete 删除文档
+		db.collection.remove(查询条件)
+*/
+
+db.students.remove({name: 'bob'})
