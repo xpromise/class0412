@@ -24,7 +24,6 @@ const app = express();
 
 //设置路由
 app.get('/', (request, response) => {
-  
   /*
     get: 请求方式
     '/test': 请求路径   http://localhost:3000/test
