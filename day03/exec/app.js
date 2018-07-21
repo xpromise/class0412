@@ -4,15 +4,54 @@ const express = require('express');
 const db = require('./database/db');
 //引入集合对象
 const Users = require('./models/Users');
+//引入sha1加密
+const sha1 = require('sha1');
 //创建应用对象
 const app = express();
+
+const usernameReg = /^[a-zA-Z0-9_]{5,12}$/;    //只能包含英文、数字和下划线，长度为5-12位。
+const passwordReg = /^[a-zA-Z0-9_]{6,18}$/    //只能包含英文、数字和下划线，长度为6-18位。
+const emailReg = /^[a-z0-9_]{5,18}@[a-z0-9_]{2,5}\.com$/
 
 //连接数据库
 db
   .then(() => {
     //登录路由
     app.get('/login', (req, res) => {
-    
+      /*
+        1. 获取用户提交的请求参数
+        2. 对用户名、密码进行正则验证
+        3. 去数据库中查找用户名和密码是否正确
+        4. 返回登录成功
+       */
+      // 1. 获取用户提交的请求参数
+      const {username, password} = req.query;
+      // 2. 对用户名、密码进行正则验证
+      if (!usernameReg.test(username)) {
+        //用户名不符合规范，返回错误信息给用户
+        res.send('用户名需要包含英文、数字和下划线，长度为5-12位。');
+        return;
+      } else if (!passwordReg.test(password)) {
+        res.send('密码需要包含英文、数字和下划线，长度为6-18位。');
+        return;
+      }
+      // 3. 去数据库中查找用户名和密码是否正确
+      Users.findOne({username, password: sha1(password)}, (err, data) => {
+        if (!err) {
+          //方法没有出错
+          if (data) {
+            //登录成功
+            // 4. 返回登录成功
+            res.send('登录成功');
+          } else {
+            //登录失败
+            res.send('用户名或者密码错误，请重新输入');
+          }
+        } else {
+          res.send('网络超时，请重新登录！');
+        }
+      })
+      
     })
 
     //注册路由
@@ -34,10 +73,6 @@ db
         return;
       }
       // 3. 对用户名、密码、邮箱进行正则验证
-      const usernameReg = /^[a-zA-Z0-9_]{5,12}$/;    //只能包含英文、数字和下划线，长度为5-12位。
-      const passwordReg = /^[a-zA-Z0-9_]{6,18}$/    //只能包含英文、数字和下划线，长度为6-18位。
-      const emailReg = /^[a-z0-9_]{5,18}@[a-z0-9_]{2,5}\.com$/
-    
       if (!usernameReg.test(username)) {
         //用户名不符合规范，返回错误信息给用户
         res.send('用户名需要包含英文、数字和下划线，长度为5-12位。');
@@ -61,10 +96,10 @@ db
             // 5. 保存数据在数据库中
             Users.create({
               username,
-              password,
+              password: sha1(password),
               email
             }, err => {
-              if (!err) res.send('注册成功~');
+              if (!err) res.sendFile(__dirname + '/public/login.html');
             })
           }
         } else {
