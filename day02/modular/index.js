@@ -6,7 +6,6 @@ const db = require('./database/db');
 //引入集合模块
 const Students = require('./models/Students');
 
-
 db
   .then(() => {
     //对集合进行操作
