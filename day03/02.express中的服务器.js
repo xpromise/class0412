@@ -35,7 +35,22 @@ app.get('/', (request, response) => {
   const query = request.query;
   console.log(query); //{ usename: 'sunwukong', password: '123123' }
   //返回响应
-  response.send('<h1>这是express服务器返回的响应</h1>');
+  // response.send('<h1>这是express服务器返回的响应</h1>');
+})
+
+app.post('/', (request, response) => {
+  
+  /*
+    get: 请求方式
+    '/test': 请求路径   http://localhost:3000/test
+    request: 请求信息
+    response: 响应信息
+  */
+  //获取请求参数
+  // const query = request.query;
+  // console.log(query); //{ usename: 'sunwukong', password: '123123' }
+  //返回响应
+  // response.send('<h1>这是express服务器返回的响应</h1>');
 })
 
 //监听端口号，开启服务
