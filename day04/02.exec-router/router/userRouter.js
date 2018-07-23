@@ -110,7 +110,7 @@ router.post('/regist', middleware, (req, res) => {
           password: sha1(password),
           email
         }, err => {
-          if (!err) res.sendFile(path.resolve(__dirname, '../', 'public/login.html'));
+          if (!err) res.redirect('/login');
         })
       }
     } else {
