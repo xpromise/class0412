@@ -26,7 +26,8 @@ db
     //验证用户填写的信息是否符合规范
     function middleware(req, res, next) {
       const {username, password, rePassword, email, method} = req.body;
-      console.log(method);
+      // console.log(req.headers.referer);
+      // console.log(method);
       // 2. 验证密码和确认密码是否一致
       if ((method === 'regist') && (password !== rePassword)) {
         //说明密码不一致，返回错误信息给用户
