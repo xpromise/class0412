@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery</title>
+</head>
+<body>
+  <button id="btn">点击发送ajax请求</button>
+  <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $('#btn').click(function () {
+        //发送ajax请求
+        /*$.ajax('/ajax', {
+          method: 'GET',
+          data: 'username=sunwukong',  //get和post请求参数都可以通过它发送
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          success: function (data) {
+            console.log(data);
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        })*/
+        $.post('/ajax', 'username=zhubajie', function (data) {
+          console.log(data);
+        })
+      })
+    })
+  </script>
+</body>
+</html>
