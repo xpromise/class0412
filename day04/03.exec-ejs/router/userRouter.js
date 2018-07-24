@@ -48,7 +48,7 @@ function middleware(req, res, next) {
     res.errMsg.passwordErr = '密码需要包含英文、数字和下划线，长度为6-18位。';
   }
   if ((method === 'regist') && !emailReg.test(email)) {
-    res.errMsg.emailErr = '邮箱格式错误，请重新输入'
+    res.errMsg.emailErr = '邮箱格式错误，请重新输入';
   }
   //调用下一个中间件
   next();
