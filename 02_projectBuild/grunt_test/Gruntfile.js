@@ -81,7 +81,41 @@ module.exports = function (grunt) {
           'dist/css/index.min.css': ['build/css/index.css']
         }
       }
-    }
+    },
+    htmlmin: {
+      dist: {
+        options: {
+          removeComments: true,      //移除注释
+          collapseWhitespace: true   //删除多余空格
+        },
+        files: {
+          'dist/index.html': 'src/index.html'
+        }
+      }
+    },
+    watch: {
+      scripts: {  //js文件的处理
+        files: ['src/js/*.js'],   //要监视的文件
+        tasks: ['jshint', 'babel', 'concat', 'uglify'],       //一旦监视的文件发生变化，就自动执行任务列表中的任务
+        options: {
+          spawn: false,  //加快任务处理速度
+        },
+      },
+      css: {
+        files: 'src/less/*.less',
+        tasks: ['less', 'cssmin'],
+        options: {
+          spawn: false,  //加快任务处理速度
+        },
+      },
+      html: {
+        files: 'src/index.html',
+        tasks: ['htmlmin'],
+        options: {
+          spawn: false,  //加快任务处理速度
+        },
+      },
+    },
   });
   //2. 加载任务插件
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -90,6 +124,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   //3. 注册默认任务
-  grunt.registerTask('default', ['jshint', 'babel', 'concat', 'uglify', 'less', 'cssmin']);  //grunt执行任务是同步的，从左到右依次执行
+  grunt.registerTask('default', ['jshint', 'babel', 'concat', 'uglify', 'less', 'cssmin', 'htmlmin']);  //grunt执行任务是同步的，从左到右依次执行
+  grunt.registerTask('myWatch', ['default', 'watch']);
 };
