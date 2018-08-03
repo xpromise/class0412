@@ -13,6 +13,8 @@
  */
 const {resolve} = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   //入口
@@ -59,11 +61,49 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.js$/, // 涵盖 .js 文件
+        enforce: "pre", // 预先加载好 jshint-loader
+        exclude: /node_modules/, // 排除掉 node_modules 文件夹下的所有文件
+        use: [
+          {
+            loader: "jshint-loader",
+            options: {
+              // 查询 jslint 配置项，请参考 http://www.jshint.com/docs/options/
+              // 例如
+              //jslint 的错误信息在默认情况下会显示为 warning（警告）类信息
+              //将 emitErrors 参数设置为 true 可使错误显示为 error（错误）类信息
+              emitErrors: true,
+              //jshint 默认情况下不会打断webpack编译
+              //如果你想在 jshint 出现错误时，立刻停止编译
+              //请设置 failOnHint 参数为true
+              failOnHint: true,
+              esversion: 6
+            }
+          }
+        ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
+        }
       }
     ]
   },
   //插件
   plugins: [
     new ExtractTextPlugin("./css/styles.css"),
+    new HtmlWebpackPlugin({
+      title: 'webpack',       //会为创建的html文件添加title标签
+      filename: 'index.html',  //创建的html文件名称
+      template: './src/index.html'  //以指定文件为模板文件来创建新的文件，新的文件会引入相应的css/js
+    }),
+    new cleanWebpackPlugin('build')
   ]
 }
