@@ -12,43 +12,19 @@
     plugins： 执行任务更广的任务，loader做不了的它来完成
  */
 const {resolve} = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   //入口
   entry: './src/js/app.js',
   //输出
   output: {
-    path: resolve(__dirname, 'build'),
+    path: resolve(__dirname, '../build'),
     filename: './js/built.js'
   },
   //loader
   module: {
     rules: [   //配置规则
-      /*{
-        test: /\.less$/,   //规则检测文件类型
-        use: [{           //使用哪种loader处理检测好的文件   执行顺序从右往左
-          loader: "style-loader" // 生成style标签，放置着css样式
-        }, {
-          loader: "css-loader" // 将css转化成一个模块加载js文件中（commonjs）
-        }, {
-          loader: "less-loader" // 将less编译成css
-        }]
-      },*/
-      {
-        test: /\.less$/,   //规则检测文件类型
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["css-loader", 'less-loader']
-          /*use: [{
-            loader: "css-loader"
-          }, {
-            loader: "less-loader"
-          }]*/
-        })
-      },
       {
         test: /\.(png|jpg|gif)$/,
         use: [
@@ -98,12 +74,10 @@ module.exports = {
   },
   //插件
   plugins: [
-    new ExtractTextPlugin("./css/styles.css"),
     new HtmlWebpackPlugin({
       title: 'webpack',       //会为创建的html文件添加title标签
       filename: 'index.html',  //创建的html文件名称
       template: './src/index.html'  //以指定文件为模板文件来创建新的文件，新的文件会引入相应的css/js
-    }),
-    new cleanWebpackPlugin('build')
+    })
   ]
 }

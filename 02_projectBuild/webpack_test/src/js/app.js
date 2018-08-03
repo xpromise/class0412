@@ -9,7 +9,9 @@ import '../less/test1.less';
 import '../less/test2.less';
 
 console.log(add(10, 20));
+console.log(add(20, 20));
 console.log(mul(10, 20));
+console.log(mul(20, 20));
 console.log(sum(1, 2, 4, 6, 8));
 console.log(data.name , data.age);
 
