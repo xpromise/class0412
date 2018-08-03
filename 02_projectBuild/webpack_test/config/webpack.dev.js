@@ -11,8 +11,6 @@
     loader： 解析webpack解析不了的文件，将文件解析成webpack的模块
     plugins： 执行任务更广的任务，loader做不了的它来完成
  */
-const {resolve} = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const common = require('./webpack.common');
 const merge = require('webpack-merge');
