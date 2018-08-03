@@ -60,7 +60,7 @@ module.exports = class Application extends Emitter {
   callback() {
     //取出中间件函数，并包装了一层promise对象
     const fn = compose(this.middleware);
-
+    
     const handleRequest = (req, res) => {
       //通过req和res创建ctx对象
       const ctx = this.createContext(req, res);
