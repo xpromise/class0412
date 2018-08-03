@@ -33,7 +33,8 @@ module.exports = {
             options: {
               limit: 8192,     // 8kb以下的图片文件会转化为base64格式
               outputPath: 'images',           //文件资源的输出路径
-              publicPath: '../images'  //css资源图片路径
+              publicPath: '../images',  //css资源图片路径
+              name: '[hash:10].[ext]'   //指定输出文件的名字
             }
           }
         ]
