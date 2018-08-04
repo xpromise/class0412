@@ -13,5 +13,21 @@
 <hr>
 
 <div id="test"></div>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+  //初始化数据
+  let data = ['jQuery', 'zepto', 'react', 'vue'];
+  //渲染虚拟dom对象
+  /*
+    遍历生成相同的结构的虚拟dom时，需要给他们加上一个key属性，属性值时唯一的
+   */
+  ReactDOM.render((<ul>
+    {data.map((item, index) => <li key={index}>{item}</li>)}
+  </ul>), document.getElementById('test'));
+
+</script>
+
 </body>
 </html>
