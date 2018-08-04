@@ -19,9 +19,55 @@
 
 <script src="../js/react.development.js"></script>
 <script src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
 <script src="../js/babel.min.js"></script>
 
 <script type="text/babel">
+  /*
+    1. 拆分组件
+      App
+      list
+    2. 数据位置
+      App
+   */
+
+  //定义App组件
+  class App extends React.Component {
+    constructor (props) {
+      super(props);
+      //初始化数据/状态
+      this.state = {
+        data: ['jQuery', 'zepto', 'react', 'vue']
+      }
+    }
+    render () {
+      //获取状态
+      const {data} = this.state;
+      return (
+        <div>
+          <h1>Hello React</h1>
+          <ul>
+            {data.map((item, index) => <List item={item} key={index} />)}
+          </ul>
+        </div>
+      )
+    }
+  }
+
+  //定义List组件
+  class List extends React.Component {
+    render () {
+      //获取组件外传递进来的属性
+      const {item} = this.props;
+      return <li>{item}</li>;
+    }
+  }
+
+  List.propTypes = {
+    item: PropTypes.string.isRequired
+  }
+
+  ReactDOM.render(<App />, document.getElementById('test'));
 
 </script>
 </body>
