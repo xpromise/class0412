@@ -47,6 +47,51 @@
       3. 当第2个输入框失去焦点时, 提示这个输入框中的值
     */
 
+    //定义组件
+    class App extends React.Component {
+      constructor (props) {
+        super(props);
+        //强制绑定this指向为实例对象
+        this.handleClick = this.handleClick.bind(this);
+      }
+
+      handleClick () {
+        //获取input输入框的值
+        // const {value} = this.msgInput;  推荐使用~
+        // const {value} = this.refs.msg;  即将废弃
+        // const {value} = this.message;   最麻烦
+        //alert
+        if (value.trim()) {
+          alert(value);
+        }
+      }
+
+      handleBlur (event) {
+        //获取input输入框的值
+        const {value} = event.target;
+        //alert
+        if (value.trim()) {
+          alert(value);
+        }
+      }
+
+      render () {
+        return (
+          <div>
+            <input type="text" ref={input => this.msgInput = input} />
+            <input type="text" ref={this.message} />
+            <input type="text" ref='msg' />
+            <button onClick={this.handleClick}>提示输入数据</button>
+            <input type="text" placeholder="失去焦点提示数据" onBlur={this.handleBlur}/>
+          </div>
+        )
+      }
+    }
+
+    //渲染组件
+    ReactDOM.render(<App />, document.getElementById('test'));
+
+
   </script>
 </body>
 </html>

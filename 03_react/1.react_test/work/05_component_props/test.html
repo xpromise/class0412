@@ -52,7 +52,11 @@
     1). 如果性别没有指定, 默认为男
     2). 如果年龄没有指定, 默认为18
   */
-
+  /*
+    props和state区别？
+      props：组件外向组件内传递数据（多个组件共享同一个状态state，通过父容器props注入到子容器中）
+      state：组件内的数据（只有组件内部使用，父组件）
+  */
   //定义组件
   class Person extends React.Component {
     constructor (props) {

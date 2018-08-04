@@ -76,7 +76,7 @@ module.exports = {
   //插件
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'webpack',       //会为创建的html文件添加title标签
+      title: 'my webpack',       //会为创建的html文件添加title标签
       filename: 'index.html',  //创建的html文件名称
       template: './src/index.html'  //以指定文件为模板文件来创建新的文件，新的文件会引入相应的css/js
     })
