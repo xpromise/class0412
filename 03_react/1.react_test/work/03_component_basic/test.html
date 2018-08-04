@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>03_component_basic</title>
+</head>
+<body>
+
+<div id="test1"></div>
+<div id="test2"></div>
+
+<script type="text/babel">
+/*
+1. 自定义组件(Component) :
+  1). 定义组件
+    //方式1: 工厂(无状态)函数(定义简单的组件推荐使用)
+    function MyComponent1() {
+      return <h1>自定义组件标题11111</h1>
+    }
+    //方式2: ES6类语法(定义复杂的组件推荐使用)
+    class MyComponent3 extends React.Component {
+      render () {
+        return <h1>自定义组件标题33333</h1>
+      }
+    }
+  2). 渲染组件标签
+    ReactDOM.render(<MyComponent/>, document.getElementById('example'));
+2. 注意:
+  1). 返回的组件类必须首字母大写
+  2). 虚拟DOM元素必须只有一个根元素
+  3). 虚拟DOM元素必须有结束标签
+3. ReactDOM.render()渲染组件标签的基本流程
+  1). React内部会创建组件实例对象(ES6类语法会new创建，而工厂函数不会)
+  2). 得到包含的虚拟DOM并解析为真实DOM
+  3). 插入到指定的页面元素内部
+*/
+
+</script>
+</body>
+</html>
