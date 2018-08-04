@@ -16,8 +16,11 @@
 <div id="test1"></div>
 <div id="test2"></div>
 
-
-<script type="text/javascript">
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
   /*
   组件3大属性之一: props属性
   1. 每个组件对象都会有props(properties的简写)属性
@@ -49,6 +52,47 @@
     1). 如果性别没有指定, 默认为男
     2). 如果年龄没有指定, 默认为18
   */
+
+  //定义组件
+  class Person extends React.Component {
+    constructor (props) {
+      super(props);
+      // 传递props就能在constructor函数使用this.props
+      console.log(this.props); //undefined
+    }
+
+    render () {
+      //接受传递进来的props属性
+      const {name, age, sex} = this.props;
+      return (
+        <ul>
+          <li>姓名: {name}</li>
+          <li>性别: {age}</li>
+          <li>年龄: {sex}</li>
+        </ul>
+      )
+    }
+  }
+  //声明接受的属性，建立约束对象
+  Person.propTypes = {
+    name: PropTypes.string.isRequired,  //数据类型是字符串，必须传
+    age: PropTypes.number,              //数据类型是数值
+    sex: PropTypes.string               //数据类型是字符串
+  }
+  //设置默认属性
+  Person.defaultProps = {
+    age: 20,
+    sex: '男'
+  }
+  //请求回来数据
+  let data = {name: '田齐', age: 18, sex: '男'};
+  /*
+    通过标签属性的方式，组件外向组件内传递属性props
+   */
+  //渲染渲染
+  ReactDOM.render(<Person {...data}/>, document.getElementById('test1'));
+  // ReactDOM.render(<Person name={data.name} age={data.age} sex={data.sex}/>, document.getElementById('test1'));
+
 
 </script>
 </body>

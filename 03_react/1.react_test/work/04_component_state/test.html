@@ -58,7 +58,7 @@
     }
     //定义事件的回调函数
     changeLike () {
-      console.log(this); //默认undefined
+      // console.log(this); //默认undefined
       //修改like的状态
       //更新状态
       this.setState({
@@ -67,6 +67,7 @@
     }
 
     render () {
+      console.log('render()');
       //获取状态
       const {isLike} = this.state;
       //通过this.changeLike才能拿到实例对象的方式
