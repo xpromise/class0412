@@ -42,6 +42,69 @@
     * 生命周期还有一个方法(后面需要时讲): componentWillReceiveProps
   */
 
+  //定义组件
+  class LifeCircle extends React.Component {
+    constructor () {
+      super();
+      console.log('constructor()');
+      //初始化状态
+      this.state = {
+        opacity: 1
+      }
+    }
+
+    //组件将要挂载
+    componentWillMount () {
+      console.log('componentWillMount()');
+      console.log(this);
+      //发送ajax请求、设置定时器....
+    }
+    //组件已经挂载完毕
+    componentDidMount () {
+      console.log('componentDidMount()');
+      console.log(this);
+      //发送ajax请求、设置定时器....
+      this.timer = setInterval(() => {
+        let {opacity} = this.state;
+        opacity -= 0.1;
+        if (opacity <= 0) {
+          opacity = 1;
+        }
+        //不断更新状态
+        this.setState({opacity})
+      }, 200)
+    }
+    //组件将要更新
+    componentWillUpdate () {
+      console.log('componentWillUpdate()');
+    }
+    //组件已经更新完毕
+    componentDidUpdate () {
+      console.log('componentDidUpdate()');
+    }
+    //组件将要被卸载
+    componentWillUnmount () {
+      console.log('componentWillUnmount()');
+      //做一些收尾工作，清除定时器
+      clearInterval(this.timer);
+    }
+
+    render () {
+      console.log('render()');
+      //获取状态
+      const {opacity} = this.state;
+      //第一个大括号代表要写js代码，第二个大括号代表里面是js对象
+      return (
+        <div>
+          <h1 style={{opacity}} >React写不会怎么办?</h1>
+          <button onClick={() => ReactDOM.unmountComponentAtNode(document.getElementById('test'))}>不活了</button>
+        </div>
+      )
+    }
+  }
+  //渲染组件
+  ReactDOM.render(<LifeCircle />, document.getElementById('test'));
+
 </script>
 </body>
 </html>
