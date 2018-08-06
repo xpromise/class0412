@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class AddComment extends Component {
   constructor (props) {
@@ -43,6 +44,10 @@ class AddComment extends Component {
       </div>
     )
   }
+}
+
+AddComment.propTypes = {
+  updateComments: PropTypes.func.isRequired
 }
 
 export default AddComment;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class CommentItem extends Component {
   constructor (props) {
@@ -29,6 +30,13 @@ class CommentItem extends Component {
       </li>
     )
   }
+}
+
+CommentItem.propTypes = {
+  username: PropTypes.string.isRequired,
+  comment: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  delComment: PropTypes.func.isRequired
 }
 
 export default CommentItem;

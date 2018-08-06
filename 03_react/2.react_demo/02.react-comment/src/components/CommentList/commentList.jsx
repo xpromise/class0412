@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import CommentItem from '../CommentItem/commentItem';
 
 class CommentList extends Component {
@@ -19,6 +20,11 @@ class CommentList extends Component {
       </div>
     )
   }
+}
+
+CommentList.propTypes = {
+  commentsList: PropTypes.array.isRequired,
+  delComment: PropTypes.func.isRequired
 }
 
 export default CommentList;
