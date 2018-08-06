@@ -10,6 +10,7 @@
 <script src="../js/react.development.js"></script>
 <script src="../js/react-dom.development.js"></script>
 <script src="../js/babel.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 <script type="text/babel">
 
 /*
@@ -23,7 +24,80 @@
 4. 测试url:
   * https://api.github.com/search/repositories?sort=starts&q=topic:javascript
 */
+  class App extends React.Component {
+    constructor (props) {
+      super(props);
+      //初始化状态
+      this.state = {
+        resData: null   //数据有没有
+      }
+    }
 
+    componentDidMount () {
+      //发送ajax请求，请求github最受欢迎的仓库
+      //axios返回值是一个promise对象
+      /*axios.get('https://api.github.com/search/repositories?sort=starts&q=topic:javascript')
+        .then(res => {
+          console.log(res);
+          //请求成功的回调
+          this.setState({
+            resData: {
+              name: res.data.items[0].name,
+              url: res.data.items[0].html_url
+            }
+          })
+        })
+        .catch(err => {
+          console.log(err);
+          //请求失败的回调
+          this.setState({
+            resData: '暂时没有相关数据'
+          })
+        })*/
+      /*
+        fetch 原生提供的
+          兼容性很差，移动端基本没办法使用
+       */
+      fetch('https://api.github.com/search/repositories?sort=starts&q=topic:javascript')
+        .then(response => {
+          console.log(response);
+          return response.json();
+        })
+        .then(res => {
+          console.log(res);
+          this.setState({
+            resData: {
+              name: res.items[0].name,
+              url: res.items[0].html_url
+            }
+          })
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({
+            resData: '暂时没有相关数据'
+          })
+        })
+    }
+
+    render () {
+      //获取状态
+      const {resData} = this.state;
+
+      if (!resData) {
+        //说明resData为null
+        return <h1>loading</h1>;
+      } else if (typeof resData === 'string') {
+        return <h1>{resData}</h1>;
+      } else {
+        return <h1>most star repo is <a href={resData.url}>{resData.name}</a></h1>
+      }
+
+    }
+
+  }
+
+  ReactDOM.render(<App />, document.getElementById('test'));
 
 </script>
 </body>
