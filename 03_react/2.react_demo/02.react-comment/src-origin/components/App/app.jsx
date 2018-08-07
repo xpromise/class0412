@@ -1,6 +1,5 @@
 //引入依赖
 import React, {Component} from 'react';
-import pubsub from 'pubsub-js';
 //引入组件
 import AddComment from '../AddComment/addComment';
 import CommentList from '../CommentList/commentList';
@@ -18,29 +17,24 @@ class App extends Component {
     }
     //修正this指向
     this.updateComments = this.updateComments.bind(this);
+    this.delComment = this.delComment.bind(this);
   }
-  
-  componentWillMount () {
-    //订阅一次，订阅消息
-    pubsub.subscribe('INDEX', (msg, data) => {
-      console.log(msg, data);
-      //删除数据，更新状态
-      //获取当前的数据
-      const {commentsList} = this.state;
-      //删除数据
-      commentsList.splice(data, 1);
-      //更新数据
-      this.setState({commentsList});
-    })
-  }
-  
-  
   //修改/更新数据的方法
   updateComments (comment) {
     //获取当前的数据
     const {commentsList} = this.state;
     //更新数据
     commentsList.unshift(comment);
+    this.setState({commentsList});
+  }
+  
+  delComment (index) {
+    //获取当前的数据
+    const {commentsList} = this.state;
+    console.log(index);
+    //删除数据
+    commentsList.splice(index, 1);
+    //更新数据
     this.setState({commentsList});
   }
   
@@ -60,7 +54,7 @@ class App extends Component {
         </header>
         <div className="container">
           <AddComment updateComments={this.updateComments} />
-          <CommentList commentsList={commentsList}/>
+          <CommentList commentsList={commentsList} delComment={this.delComment}/>
         </div>
       </div>
     )

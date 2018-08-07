@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class Search extends Component {
-  constructor (props) {
+  /*constructor (props) {
     super(props);
-    this.search = this.search.bind(this);
-  }
+    // this.search = this.search.bind(this);
+  }*/
   
-  search () {
+  search = () => {
     //获取输入框的值
     const value = this.msgInput.value.trim();
     if (value) {

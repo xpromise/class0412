@@ -5,7 +5,7 @@ import CommentItem from '../CommentItem/commentItem';
 class CommentList extends Component {
   render () {
     //获取数据
-    const {commentsList} = this.props;
+    const {commentsList, delComment} = this.props;
     //判断是否有数据
     const display = commentsList.length ? 'none' : 'block';
     return (
@@ -14,7 +14,7 @@ class CommentList extends Component {
         <h2 style={{display}}>暂无评论，点击左侧添加评论！！！</h2>
         <ul className="list-group">
           {
-            commentsList.map((item, index) => <CommentItem key={index} {...item} index={index}/>)
+            commentsList.map((item, index) => <CommentItem key={index} {...item} delComment={delComment} index={index}/>)
           }
         </ul>
       </div>
@@ -23,7 +23,8 @@ class CommentList extends Component {
 }
 
 CommentList.propTypes = {
-  commentsList: PropTypes.array.isRequired
+  commentsList: PropTypes.array.isRequired,
+  delComment: PropTypes.func.isRequired
 }
 
 export default CommentList;
