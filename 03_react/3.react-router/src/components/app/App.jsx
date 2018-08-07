@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {Route, NavLink, Link} from 'react-router-dom';
+import {
+  Route,
+  NavLink,
+  Link,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 /*
   NavLink组件和Link组件的区别：
     选中时有没有加上active类
@@ -33,8 +39,11 @@ class App extends Component {
           <div className="col-xs-6">
             <div className="panel">
               <div className="panel-body">
-                <Route path="/about" component={About} />
-                <Route path="/home" component={Home}/>
+                <Switch>
+                  <Route path="/about" component={About} />
+                  <Route path="/home" component={Home}/>
+                  <Redirect push to="/about"/>
+                </Switch>
               </div>
             </div>
           </div>
