@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class Search extends Component {
-  static propTypes = {
-    fetchData: PropTypes.func.isRequired
-  }
+  /*constructor (props) {
+    super(props);
+    // this.search = this.search.bind(this);
+  }*/
   
   search = () => {
     //获取输入框的值
     const value = this.msgInput.value.trim();
     if (value) {
       //调用方式更新状态
-      this.props.fetchData(value);
+      this.props.search(value);
     }
   }
   
@@ -28,7 +29,9 @@ class Search extends Component {
   }
 }
 
-
+Search.propTypes = {
+  search: PropTypes.func.isRequired
+}
 
 
 export default Search;
