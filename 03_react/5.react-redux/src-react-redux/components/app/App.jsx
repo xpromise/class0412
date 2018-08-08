@@ -8,8 +8,7 @@ class App extends Component {
   static propTypes = {
     count: PropTypes.number.isRequired,
     increment: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired,
-    incrementAsync: PropTypes.func.isRequired
+    decrement: PropTypes.func.isRequired
   }
   
   increment = () => {
@@ -65,9 +64,21 @@ class App extends Component {
   }
   
   incrementAsync = () => {
-    //获取下拉列表的值
-    const {value} = this.select;
-    this.props.incrementAsync(+value);
+    setTimeout(() => {
+      //获取下拉列表的值
+      const {value} = this.select;
+      //获取当前状态值
+      // const {count} = this.state;
+      //更新状态
+      /*this.setState({
+        count: +value + count
+      })*/
+      //调用actions函数得出action对象
+      // const action = increment(+value);
+      //调用dispatch函数
+      // this.props.store.dispatch(action);
+      this.props.increment(+value);
+    }, 1000)
   }
   
   render () {
