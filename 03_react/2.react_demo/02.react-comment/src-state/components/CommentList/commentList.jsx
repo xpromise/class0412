@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import CommentItem from '../../containers/item';
+import CommentItem from '../CommentItem/commentItem';
 
 class CommentList extends Component {
-  static propTypes = {
-    commentsList: PropTypes.array.isRequired
-  }
-  
   render () {
     //获取数据
     const {commentsList} = this.props;
@@ -26,6 +22,8 @@ class CommentList extends Component {
   }
 }
 
-
+CommentList.propTypes = {
+  commentsList: PropTypes.array.isRequired
+}
 
 export default CommentList;

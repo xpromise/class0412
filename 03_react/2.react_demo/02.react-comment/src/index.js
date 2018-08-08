@@ -1,8 +1,13 @@
 //引入依赖
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 //引入应用主组件
 import App from './components/App/app';
+import store from './redux/store';
 
 //渲染组件
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('app'));

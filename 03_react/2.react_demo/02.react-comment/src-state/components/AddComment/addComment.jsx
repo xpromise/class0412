@@ -2,19 +2,21 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class AddComment extends Component {
-  static propTypes = {
-    addComment: PropTypes.func.isRequired
+  constructor (props) {
+    super(props);
+    //修正this指向
+    this.addComment = this.addComment.bind(this);
   }
   
   //添加评论的方法
-  addComment = () => {
+  addComment () {
     //收集用户填写的数据
     const username = this.nameInput.value.trim();
     const comment = this.contentInput.value.trim();
     //过滤空的数据
     if (username && comment) {
       //添加评论数据
-      this.props.addComment({username, comment});
+      this.props.updateComments({username, comment});
       //清空用户填写的数据
       this.nameInput.value = '';
       this.contentInput.value = '';
@@ -44,5 +46,8 @@ class AddComment extends Component {
   }
 }
 
+AddComment.propTypes = {
+  updateComments: PropTypes.func.isRequired
+}
 
 export default AddComment;

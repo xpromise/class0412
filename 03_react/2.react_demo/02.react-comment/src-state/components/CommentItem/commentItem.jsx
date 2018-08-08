@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
 
 class CommentItem extends Component {
-  static propTypes = {
-    username: PropTypes.string.isRequired,
-    comment: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    delComment: PropTypes.func.isRequired
+  constructor (props) {
+    super(props);
+    this.delComment = this.delComment.bind(this);
   }
   
-  delComment = () => {
+  delComment () {
     // 获取当前下标
     const {index} = this.props;
     
     if (window.confirm(`您确认删除${this.props.username}吗？`)) {
       //调用App组件删除数据的方法
-      this.props.delComment(index);
+      // this.props.delComment(index);
       //发布消息
+      pubsub.publish('INDEX', index);
     }
   }
   
@@ -33,6 +33,12 @@ class CommentItem extends Component {
       </li>
     )
   }
+}
+
+CommentItem.propTypes = {
+  username: PropTypes.string.isRequired,
+  comment: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired
 }
 
 export default CommentItem;
