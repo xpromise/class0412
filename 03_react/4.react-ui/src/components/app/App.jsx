@@ -6,13 +6,12 @@ import {
   Carousel,
   DatePicker
 } from 'antd';
+import moment from 'moment';
+
+import Bread from '../bread/Bread';
+import './app.css';
 
 const { RangePicker } = DatePicker;
-
-
-// import Bread from '../bread/Bread';
-
-import './app.css';
 
 class App extends Component {
   render () {
@@ -38,7 +37,9 @@ class App extends Component {
         <Button type="dashed">按钮</Button>
         <Button type="primary" shape="circle" icon="download" size="large" />
         <Button type="primary" icon="download" size="large">Download</Button>
-        {/*<Bread />*/}
+        
+        <Bread />
+        
         <Carousel autoplay >
           <div><h3>1</h3></div>
           <div><h3>2</h3></div>
