@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+
+import {increment, decrement} from '../../redux/actions';
 
 class App extends Component {
   /*state = {
     count: 0
   }*/
-  static propTypes = {
-    count: PropTypes.number.isRequired,
-    increment: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired
-  }
   
   increment = () => {
     //获取下拉列表的值
@@ -21,10 +17,9 @@ class App extends Component {
     //   count: +value + count
     // })
     //调用actions函数得出action对象
-    // const action = increment(+value);
+    const action = increment(+value);
     //调用dispatch函数
-    // this.props.store.dispatch(action);
-    this.props.increment(+value);
+    this.props.store.dispatch(action);
   }
   
   decrement = () => {
@@ -37,16 +32,15 @@ class App extends Component {
       count: count - value
     })*/
     //调用actions函数得出action对象
-    // const action = decrement(+value);
+    const action = decrement(+value);
     //调用dispatch函数
-    // this.props.store.dispatch(action);
-    this.props.decrement(+value);
+    this.props.store.dispatch(action);
   }
   
   incrementIfOdd = () => {
     //获取当前状态值
     // const {count} = this.state;
-    const {count} = this.props;
+    const count = this.props.store.getState();
     //判断当前状态是否是奇数
     if (count % 2) {
       //获取下拉列表的值
@@ -56,10 +50,9 @@ class App extends Component {
       //   count: count + +value
       // })
       //调用actions函数得出action对象
-      // const action = increment(+value);
+      const action = increment(+value);
       //调用dispatch函数
-      // this.props.store.dispatch(action);
-      this.props.increment(+value);
+      this.props.store.dispatch(action);
     }
   }
   
@@ -74,16 +67,15 @@ class App extends Component {
         count: +value + count
       })*/
       //调用actions函数得出action对象
-      // const action = increment(+value);
+      const action = increment(+value);
       //调用dispatch函数
-      // this.props.store.dispatch(action);
-      this.props.increment(+value);
+      this.props.store.dispatch(action);
     }, 1000)
   }
   
   render () {
     // const {count} = this.state;
-    const {count} = this.props;
+    const count = this.props.store.getState();
   
     return (
       <div>
